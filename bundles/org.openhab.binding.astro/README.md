@@ -129,26 +129,26 @@ sunset is 22:10 but `latest` is set to 20:00 so the event/datetime value is move
 Things:
 
 ```
-astro:sun:home  [ geolocation="52.5200066,13.4049540,100", interval=60 ]
-astro:moon:home [ geolocation="52.5200066,13.4049540", interval=60 ]
+astro:sun:local  [ geolocation="52.5200066,13.4049540,100", interval=60 ]
+astro:moon:local [ geolocation="52.5200066,13.4049540", interval=60 ]
 ```
 
 or optionally with an event offset
 
 ```
-astro:sun:home [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
+astro:sun:local [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
     Channels:
         Type rangeEvent : rise#event [
             offset=-30
         ]
 }
-astro:moon:home [ geolocation="52.5200066,13.4049540", interval=60 ]
+astro:moon:local [ geolocation="52.5200066,13.4049540", interval=60 ]
 ```
 
 or a datetime offset
 
 ```
-astro:sun:home [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
+astro:sun:local [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
     Channels:
         Type start : rise#start [
             offset=5
@@ -162,7 +162,7 @@ astro:sun:home [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
 or a offset and latest
 
 ```
-astro:sun:home [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
+astro:sun:local [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
     Channels:
         Type rangeEvent : rise#event [
             offset=-10,
@@ -174,14 +174,14 @@ astro:sun:home [ geolocation="52.5200066,13.4049540,100", interval=60 ] {
 Items:
 
 ```
-DateTime         Sunrise_Time       "Sunrise [%1$tH:%1$tM]"                   { channel="astro:sun:home:rise#start" }
-DateTime         Sunset_Time        "Sunset [%1$tH:%1$tM]"                    { channel="astro:sun:home:set#start" }
-Number:Angle     Azimuth            "Azimuth"                                 { channel="astro:sun:home:position#azimuth" }
-Number:Angle     Elevation          "Elevation"                               { channel="astro:sun:home:position#elevation" }
-String           MoonPhase          "MoonPhase"                               { channel="astro:moon:home:phase#name" }
-Number:Length    MoonDistance       "MoonDistance [%.1f %unit%]"              { channel="astro:moon:home:distance#distance" }
-Number:Intensity Total_Radiation    "Radiation [%.2f %unit%]"                 { channel="astro:sun:home:radiation#total" }
-Number:Intensity Diffuse_Radiation  "Diffuse Radiation [%.2f %unit%]"         { channel="astro:sun:home:radiation#diffuse" }
+DateTime         Sunrise_Time       "Sunrise [%1$tH:%1$tM]"                   { channel="astro:sun:local:rise#start" }
+DateTime         Sunset_Time        "Sunset [%1$tH:%1$tM]"                    { channel="astro:sun:local:set#start" }
+Number:Angle     Azimuth            "Azimuth"                                 { channel="astro:sun:local:position#azimuth" }
+Number:Angle     Elevation          "Elevation"                               { channel="astro:sun:local:position#elevation" }
+String           MoonPhase          "MoonPhase"                               { channel="astro:moon:local:phase#name" }
+Number:Length    MoonDistance       "MoonDistance [%.1f %unit%]"              { channel="astro:moon:local:distance#distance" }
+Number:Intensity Total_Radiation    "Radiation [%.2f %unit%]"                 { channel="astro:sun:local:radiation#total" }
+Number:Intensity Diffuse_Radiation  "Diffuse Radiation [%.2f %unit%]"         { channel="astro:sun:local:radiation#diffuse" }
 ```
 
 Events:
@@ -189,7 +189,7 @@ Events:
 ```
 rule "example trigger rule"
 when
-    Channel 'astro:sun:home:rise#event' triggered START
+    Channel 'astro:sun:local:rise#event' triggered START
 then
     ...
 end
